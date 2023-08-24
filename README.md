@@ -2,7 +2,17 @@
 
 **Dynamic Check Challenges with docker-compose for CTFd**
 
-Modify from [H1ve/CTFd/plugins/ctfd-owl](https://github.com/D0g3-Lab/H1ve/tree/master/CTFd/plugins/ctfd-owl) and [CTFd-Whale](https://github.com/frankli0324/CTFd-Whale). 
+This project is a fork of [CTFd-owl](https://github.com/BIT-NSC/CTFd-owl), which was modified from [H1ve/CTFd/plugins/ctfd-owl](https://github.com/D0g3-Lab/H1ve/tree/master/CTFd/plugins/ctfd-owl) and [CTFd-Whale](https://github.com/frankli0324/CTFd-Whale).
+
+## Quick Start
+
+1. Ensure that `docker` and `docker compose` is installed.
+2. Clone this repository and `cd` into it.
+3. You may edit `SECRET_KEY` and `MYSQL_PASSWORD` in `single-dind.yml` and `token` in `frp/conf/frps.ini`
+4. Run `docker compose -f single-dind.yml up`
+5. In configuration page, change Docker API URL to `unix://docker/socket/docker.sock`
+
+# ORIGINAL README
 
 适合的 CTFd 版本： **Version 3.4.0**.(如果你想使用 **V3.4.2+**, 请先阅读 [使用 V3.4.2+ 版本](https://github.com/BIT-NSC/CTFd-owl/wiki/%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98#%E4%BD%BF%E7%94%A8-v342-%E7%89%88%E6%9C%AC))
 
@@ -80,7 +90,6 @@ docker-compose -f CTFd/single.yml up -d
 #### FRP Settings
 
 ![FRP Settings](./assets/ctfd-owl_admin_settings-frp.png)
-
 
 |Options|Content|
 |:-:|:-:|
