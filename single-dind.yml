@@ -19,13 +19,13 @@ services:
             - LOG_FOLDER=/var/log/CTFd
             - ACCESS_LOG=/var/log/CTFd/access.log
             - ERROR_LOG=/var/log/CTFd/error.log
-            - PROBLEM_DOCKER_RUN_FOLDER=/home/docker # 题目容器运行的文件夹，保证与下方 volumes 中的一致
+            - PROBLEM_DOCKER_RUN_FOLDER=/docker/run # 题目容器运行的文件夹，保证与下方 volumes 中的一致
         volumes:
             - .data/CTFd/logs:/var/log/CTFd
             - .data/CTFd/uploads:/var/uploads
-            - ./CTFd/plugins/ctfd-owl:/opt/CTFd/plugins/ctfd-owl
-            - docker-challenge:/home/docker # DIND 和容器的映射目录和 PROBLEM_DOCKER_RUN_FOLDER 一致，保证题目创建时不会出现找不到题目容器的映射目录等情况
-            - dind-socket:/var/run/ # 保证通过容器的 docker.sock 能操作 DIND 的 docker.sock
+            - ./CTFd/plugins/ctfd-owl:/opt/CTFd/CTFd/plugins/ctfd-owl # Mount the plugin to reflect changes without re-building
+            - docker-challenge:/docker/run # DIND 和容器的映射目录和 PROBLEM_DOCKER_RUN_FOLDER 一致，保证题目创建时不会出现找不到题目容器的映射目录等情况
+            - dind-socket:/docker/socket # 保证通过容器的 docker.sock 能操作 DIND 的 docker.sock
         depends_on:
             - db
             - frpc
@@ -41,10 +41,12 @@ services:
         restart: always
         volumes:
             - dind-storage:/var/lib/docker
-            - dind-socket:/var/run/
-            - docker-challenge:/home/docker
+            - dind-socket:/var/run
+            - docker-challenge:/docker/run
         networks:
-            internal:
+            frp:
+        depends_on:
+            - frpc
 
     db:
         image: mariadb:10.4
