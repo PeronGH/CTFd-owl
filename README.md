@@ -12,6 +12,10 @@ This project is a fork of [CTFd-owl](https://github.com/BIT-NSC/CTFd-owl), which
 4. Run `docker compose -f single-dind.yml up`
 5. In configuration page, change Docker API URL to `unix://docker/socket/docker.sock`
 
+## New Features
+
+- Docker in Docker
+
 # ORIGINAL README
 
 适合的 CTFd 版本： **Version 3.4.0**.(如果你想使用 **V3.4.2+**, 请先阅读 [使用 V3.4.2+ 版本](https://github.com/BIT-NSC/CTFd-owl/wiki/%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98#%E4%BD%BF%E7%94%A8-v342-%E7%89%88%E6%9C%AC))
@@ -51,9 +55,9 @@ pip3 install docker-compose
 
 上面的命令会尝试安装 `docker-ce`，`python3-pip` 和 `docker-compose`。 在执行它们之前，请确保满足以下要求：
 
-* 安装了 `curl`、`git`、`python3` 和 `pip`
-* GitHub 可访问（可尝试国内镜像站或手动通过其他方式下载）
-* Docker Registry 是可访问的（可以换源为国内镜像）
+- 安装了 `curl`、`git`、`python3` 和 `pip`
+- GitHub 可访问（可尝试国内镜像站或手动通过其他方式下载）
+- Docker Registry 是可访问的（可以换源为国内镜像）
 
 如果要使用 nginx，请使用 `single-nginx.yml`，否则使用 `single.yml`（nginx的配置请在`conf`下自行修改）。
 
@@ -124,4 +128,4 @@ admin_port = 7400
 
 ## Twins
 
-* [CTFd-Whale](https://github.com/frankli0324/CTFd-Whale) (Support docker-swarm)
+- [CTFd-Whale](https://github.com/frankli0324/CTFd-Whale) (Support docker-swarm)

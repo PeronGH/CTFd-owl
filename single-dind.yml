@@ -23,7 +23,7 @@ services:
         volumes:
             - .data/CTFd/logs:/var/log/CTFd
             - .data/CTFd/uploads:/var/uploads
-            - ./CTFd/plugins/ctfd-owl:/opt/CTFd/CTFd/plugins/ctfd-owl # Mount the plugin to reflect changes without re-building
+            - ./challenges:/opt/CTFd/CTFd/plugins/ctfd-owl/source # Mount the challenges
             - docker-challenge:/docker/run # DIND 和容器的映射目录和 PROBLEM_DOCKER_RUN_FOLDER 一致，保证题目创建时不会出现找不到题目容器的映射目录等情况
             - dind-socket:/docker/socket # 保证通过容器的 docker.sock 能操作 DIND 的 docker.sock
         depends_on:
