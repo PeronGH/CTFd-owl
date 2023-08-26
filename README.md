@@ -11,10 +11,6 @@ This project is a fork of [CTFd-owl](https://github.com/BIT-NSC/CTFd-owl), which
 2. Run `docker compose -f single-debug.yml up` to start debug server.
 3. Use `docker compose -f single-debug.yml down` to stop it.
 
-## New Features
-
-- Docker in Docker
-
 # ORIGINAL README
 
 适合的 CTFd 版本： **Version 3.4.0**.(如果你想使用 **V3.4.2+**, 请先阅读 [使用 V3.4.2+ 版本](https://github.com/BIT-NSC/CTFd-owl/wiki/%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98#%E4%BD%BF%E7%94%A8-v342-%E7%89%88%E6%9C%AC))
