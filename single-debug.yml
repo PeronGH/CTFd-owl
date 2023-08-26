@@ -18,8 +18,10 @@ services:
             - ACCESS_LOG=/var/log/CTFd/access.log
             - ERROR_LOG=/var/log/CTFd/error.log
             - PROBLEM_DOCKER_RUN_FOLDER=/docker/run # 题目容器运行的文件夹，保证与下方 volumes 中的一致
+            - DATABASE_URL=sqlite:////var/db/ctfd.db # sync db
         volumes:
-            - .data:/opt/CTFd/.data
+            - .data:/opt/CTFd/.data # sync cache
+            - .data/db:/var/db # sync db
             - .data/CTFd/logs:/var/log/CTFd
             - .data/CTFd/uploads:/var/uploads
             - ./challenges:/opt/CTFd/CTFd/plugins/ctfd-owl/source # Mount the challenges
@@ -43,6 +45,7 @@ services:
             - docker-challenge:/docker/run
         networks:
             frp:
+                ipv4_address: 10.1.0.6
         depends_on:
             - frpc
 
