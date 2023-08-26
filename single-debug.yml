@@ -17,7 +17,7 @@ services:
             - LOG_FOLDER=/var/log/CTFd
             - ACCESS_LOG=/var/log/CTFd/access.log
             - ERROR_LOG=/var/log/CTFd/error.log
-            - PROBLEM_DOCKER_RUN_FOLDER=/docker/run # 题目容器运行的文件夹，保证与下方 volumes 中的一致
+            - PROBLEM_DOCKER_RUN_FOLDER=/tmp/owl/run # 题目容器运行的文件夹，保证与下方 volumes 中的一致
             - DATABASE_URL=sqlite:////var/db/ctfd.db # sync db
         volumes:
             - .data:/opt/CTFd/.data # sync cache
@@ -25,8 +25,8 @@ services:
             - .data/CTFd/logs:/var/log/CTFd
             - .data/CTFd/uploads:/var/uploads
             - ./challenges:/opt/CTFd/CTFd/plugins/ctfd-owl/source # Mount the challenges
-            - docker-challenge:/docker/run # DIND 和容器的映射目录和 PROBLEM_DOCKER_RUN_FOLDER 一致，保证题目创建时不会出现找不到题目容器的映射目录等情况
-            - dind-socket:/docker/socket # 保证通过容器的 docker.sock 能操作 DIND 的 docker.sock
+            - /tmp/owl/run:/tmp/owl/run # DIND 和容器的映射目录和 PROBLEM_DOCKER_RUN_FOLDER 一致，保证题目创建时不会出现找不到题目容器的映射目录等情况
+            - /var/run/docker.sock:/var/run/docker.sock # 保证通过容器的 docker.sock 能操作宿主机的 docker.sock
         depends_on:
             - frpc
         networks:
@@ -34,20 +34,6 @@ services:
             internal:
             frp:
                 ipv4_address: 10.1.0.5
-
-    dind:
-        image: docker:dind
-        privileged: true
-        restart: always
-        volumes:
-            - dind-storage:/var/lib/docker
-            - dind-socket:/var/run
-            - docker-challenge:/docker/run
-        networks:
-            frp:
-                ipv4_address: 10.1.0.6
-        depends_on:
-            - frpc
 
     frps:
         image: spaceskynet/bitnsc-frp
@@ -82,6 +68,8 @@ services:
             - /app/frpc
             - -c
             - /conf/frpc.ini
+        depends_on:
+            - frps
         networks:
             frp:
                 ipv4_address: 10.1.0.4
@@ -105,8 +93,3 @@ networks:
         ipam:
             config:
                 - subnet: 10.2.0.0/16
-
-volumes:
-    dind-storage:
-    dind-socket:
-    docker-challenge:

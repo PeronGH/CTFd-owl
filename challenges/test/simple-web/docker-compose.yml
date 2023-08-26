@@ -1,0 +1,18 @@
+version: "3"
+services:
+    service:
+        image: denoland/deno:latest
+        volumes:
+            - ./app:/app
+        restart: always
+        command: deno run -A /app/main.ts
+        expose:
+            - 8000
+        networks:
+            - net
+
+networks:
+    # 配置docker network
+    net: 
+      external: 
+         name: bitnsc_frp_containers
