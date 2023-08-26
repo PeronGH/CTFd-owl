@@ -6,11 +6,10 @@ This project is a fork of [CTFd-owl](https://github.com/BIT-NSC/CTFd-owl), which
 
 ## Quick Start
 
+0. Only UNIX-like systems are supported.
 1. Ensure that `docker` and `docker compose` is installed.
-2. Clone this repository and `cd` into it.
-3. You may edit `SECRET_KEY` and `MYSQL_PASSWORD` in `single-dind.yml` and `token` in `frp/conf/frps.ini`
-4. Run `docker compose -f single-dind.yml up`
-5. In configuration page, change Docker API URL to `unix://docker/socket/docker.sock`
+2. Run `docker compose -f single-debug.yml up` to start debug server.
+3. Use `docker compose -f single-debug.yml up` to stop it.
 
 ## New Features
 
