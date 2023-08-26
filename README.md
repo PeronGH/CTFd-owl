@@ -4,6 +4,29 @@ Dynamically Spawn and Manage Docker Compose Instances for CTFd.
 
 This project is a fork of [CTFd-owl](https://github.com/BIT-NSC/CTFd-owl), which was modified from [H1ve/ctfd-owl](https://github.com/D0g3-Lab/H1ve/tree/master/CTFd/plugins/ctfd-owl) and [CTFd-Whale](https://github.com/frankli0324/CTFd-Whale).
 
+## Architecture
+
+```mermaid
+graph
+ subgraph Docker
+  subgraph ctfd[CTFd]
+   owl[CTFd-owl Plugin]
+   others[...Ohter Components]
+  end
+  
+  ctfd <--> db[Database]
+   frps[FRP Server] <--> frpc[FRP Client]
+   I[Instances] <--> frpc
+   owl -->|manages| frpc
+ end
+ 
+ compose[Docker Compose] -->|starts up| Docker
+ compose -->|starts up or stops| I
+ owl -->|controls| compose
+ frps -->|exposed ports| U[Users]
+ U -->|interacts with| ctfd
+```
+
 ## Quick Start
 
 0. Only UNIX-like systems are officially supported.
